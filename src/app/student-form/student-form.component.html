@@ -1,0 +1,102 @@
+<div class="container-fluid">
+  <form #arrowForm="ngForm" class="row mt-5">
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>First name</mat-label>
+        <input required name="firstName" ngModel autocomplete="off" matInput type="text">
+        <mat-error *ngIf="arrowForm.controls['firstName']?.errors?.required">First name is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>Last name</mat-label>
+        <input required name="lastName" ngModel autocomplete="off" matInput type="text">
+        <mat-error *ngIf="arrowForm.controls['lastName']?.errors?.required">First name is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+
+      <mat-form-field class="w-100">
+        <mat-label>Mobile Number</mat-label>
+        <input pattern="^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$" required name="phoneNumber" ngModel autocomplete="off" matInput type="tel">
+        <mat-error *ngIf="arrowForm.controls['phoneNumber']?.errors?.required">Mobile Number is Required</mat-error>
+        <mat-error *ngIf="arrowForm.controls['phoneNumber']?.errors?.pattern">Provide valid Mobile Number</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>Address One</mat-label>
+        <input required name="addressOne" ngModel autocomplete="off" matInput type="text">
+        <mat-error *ngIf="arrowForm.controls['addressOne']?.errors?.required">First name is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>Address Two</mat-label>
+        <input required name="addressTwo" ngModel autocomplete="off" matInput type="text">
+        <mat-error *ngIf="arrowForm.controls['addressTwo']?.errors?.required">First name is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>Country</mat-label>
+        <mat-select (ngModelChange)="service.setSelectedCountry($event)"
+                    *ngIf="service.countriesList$ | async as countriesList"
+                    required name="country" ngModel>
+          <mat-option *ngFor="let country of countriesList" [value]="country.id">{{country.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="arrowForm.controls['country']?.errors?.required">First name is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>State</mat-label>
+        <mat-select *ngIf="service.filteredStates$ | async as filteredStates"  required name="state" ngModel>
+          <mat-option *ngFor="let state of filteredStates" [value]="state.id">{{state.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="arrowForm.controls['state']?.errors?.required">First name is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>City</mat-label>
+        <mat-select required name="city" ngModel>
+          <mat-option [value]="'vizag'">Vizag</mat-option>
+          <mat-option [value]="'bhimavaram'">Bhimavaram</mat-option>
+          <mat-option [value]="'rajamandry'">Rajamandry</mat-option>
+        </mat-select>
+        <mat-error *ngIf="arrowForm.controls['city']?.errors?.required">First name is Required</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field class="w-100">
+        <mat-label>Zip Code</mat-label>
+        <input pattern="([0-9]{6}|[0-9]{3}\s[0-9]{3})" required name="zipCode" ngModel autocomplete="off" matInput type="text">
+        <mat-error *ngIf="arrowForm.controls['zipCode']?.errors?.required">First name is Required</mat-error>
+        <mat-error *ngIf="arrowForm.controls['zipCode']?.errors?.pattern">Provide Valid Zip Code</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="col-12 text-right">
+      <button (click)="service.addStudent(arrowForm.value);arrowForm.resetForm({})"
+              class="mr-3" type="button" [disabled]="arrowForm.invalid"
+              mat-raised-button color="primary">Save
+      </button>
+      <button mat-raised-button type="reset">Cancel</button>
+    </div>
+
+    <!--<pre *ngIf="service.getStudents() | async as list">{{list|json}}</pre>-->
+
+  </form>
+
+
+  <ul class="list-group" *ngIf="service.getStudents() | async as getStudentsList">
+    <li *ngFor="let student of getStudentsList" class="list-group-item">
+      <pre>{{student|json}}</pre>
+      <button (click)="service.deleteStudent(student.id)" class="btn btn-sm btn-danger float-right">
+      Delete
+    </button>
+    </li>
+  </ul>
+
+</div>

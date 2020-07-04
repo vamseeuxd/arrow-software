@@ -15,12 +15,18 @@ import { ArrowNavigationComponent } from './arrow-navigarion/arrow-navigation.co
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { StudentFormComponent } from './student-form/student-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     ArrowMeetingComponent,
-    ArrowNavigationComponent
+    ArrowNavigationComponent,
+    StudentFormComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,12 @@ import { MatListModule } from '@angular/material/list';
     LayoutModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
